@@ -10,6 +10,7 @@ CREATOR = "John"
 TYPES = {}
 JET_Y_CORDS = {}
 JET_X_CORDS = {}
+BASE_TARGETS = {}
 
 
 def tank_ai(tank, info, game_map):
@@ -141,15 +142,19 @@ class PlayerAi:
                 lvl = 0
             else:
                 lvl = self.blevels[b.uid]
-            if lvl < 5:
+            if lvl < 2:
+                bb = self.build(b, "mine")
+            elif lvl == 4:
+                bb = self.build(b, "mine")
+            elif lvl == 10:
                 bb = self.build(b, "mine")
             elif lvl < 12:
                 bb = self.build(b, "ship")
             else:
-                if lvl % 2 == 0:
-                    bb = self.build(b, "jet")
+                if lvl % 3 == 0:
+                    bb = self.build(b, "ship")
                 else:
-                    bb = self.build(b, "tank")
+                    bb = self.build(b, "jet")                    
             if bb:
                 print(f"mine done at {lvl=}")
                 self.blevels[b.uid] = lvl+1
